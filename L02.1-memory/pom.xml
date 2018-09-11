@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ru.otus</groupId>
+    <artifactId>L02.1-memory</artifactId>
+    <version>2018-08</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.github.jbellis</groupId>
+            <artifactId>jamm</artifactId>
+            <version>${com.github.jbellis.version}</version>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.10</maven.compiler.source>
+        <maven.compiler.target>1.10</maven.compiler.target>
+        <com.github.jbellis.version>0.3.2</com.github.jbellis.version>
+        <main.class>ru.otus.l02.Main</main.class>
+    </properties>
+
+    <build>
+        <finalName>${project.name}</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>${main.class}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>my-maven-assembly-plugin</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <appendAssemblyId>true</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>${main.class}</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-agent</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.github.jbellis</groupId>
+                                    <artifactId>jamm</artifactId>
+                                    <version>${com.github.jbellis.version}</version>
+                                    <outputDirectory>${project.build.directory}/agents</outputDirectory>
+                                    <destFileName>jamm.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <executable>java</executable>
+                    <arguments>
+                        <argument>-javaagent:${project.build.directory}/agents/jamm.jar</argument>
+                        <argument>-jar</argument>
+                        <argument>${project.build.directory}/${project.name}.jar</argument>
+                        <argument>--illegal-access=warn</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+
+</project>
