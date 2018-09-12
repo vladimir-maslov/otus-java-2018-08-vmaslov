@@ -7,7 +7,7 @@ import java.util.*;
 public class MemoryMeasurer {
 
     private MemoryMeter meter;
-    private LinkedHashMap<String, Long> results = new LinkedHashMap<String, Long>();
+    private LinkedHashMap<String, Long> results = new LinkedHashMap<>();
     private Random rand;
 
     public MemoryMeasurer() {
@@ -15,7 +15,7 @@ public class MemoryMeasurer {
         rand = new Random();
     }
 
-    public void getMeasures() {
+    public MeasureResult getMeasures() {
         measureBasics();
         measureArrays();
         measureCollections();
@@ -23,12 +23,7 @@ public class MemoryMeasurer {
         measureArrayList();
         measureLinkedList();
         measureHashSet();
-    }
-
-    public void printResult() {
-        results.forEach((k, v) -> {
-            System.out.println(k + " — " + v + " bytes");
-        });
+        return new MeasureResult(new LinkedHashMap<>(results));
     }
 
     private void measureBasics() {
