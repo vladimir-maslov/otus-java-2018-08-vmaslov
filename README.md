@@ -34,3 +34,12 @@ vlmr.maslov@gmail.com
 </details>
 
 Запуск: `mvn clean package exec:exec -e`
+
+### ДЗ 03. MyArrayList
+<details><summary>Задание</summary>
+<p>
+
+* Написать свою реализацию ArrayList на основе массива. 
+* Проверить, что на ней работают методы java.util.Collections
+<p>
+</details>
