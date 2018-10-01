@@ -47,14 +47,16 @@ public class MyArrayList<T> implements List<T> {
         return listIterator();
     }
 
+    @Override
     public Object[] toArray() {
         Object[] arr = new Object[size];
         System.arraycopy(data, 0, arr, 0, size);
         return arr;
     }
 
+    @Override
     public <T1> T1[] toArray(T1[] a) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     private void ensureCapacity(int dataSize) {
@@ -80,12 +82,14 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
+    @Override
     public boolean remove(Object o) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -105,12 +109,14 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
+    @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -150,11 +156,11 @@ public class MyArrayList<T> implements List<T> {
     }
 
     public int indexOf(Object o) {
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
     public int lastIndexOf(Object o) {
-        return 0;
+        throw new UnsupportedOperationException();
     }
 
     public ListIterator<T> listIterator() {
@@ -188,12 +194,12 @@ public class MyArrayList<T> implements List<T> {
 
             @Override
             public int nextIndex() {
-                return 0;
+                throw new UnsupportedOperationException();
             }
 
             @Override
             public int previousIndex() {
-                return 0;
+                throw new UnsupportedOperationException();
             }
 
             @Override
@@ -215,10 +221,10 @@ public class MyArrayList<T> implements List<T> {
     }
 
     public ListIterator<T> listIterator(int index) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     public List<T> subList(int fromIndex, int toIndex) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 }
