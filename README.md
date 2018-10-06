@@ -44,7 +44,7 @@ vlmr.maslov@gmail.com
 <p>
 </details>
 
-### ДЗ 05. Тестовый фреймворк на аннотациях
+### ДЗ 04. Тестовый фреймворк на аннотациях
 <details><summary>Задание</summary>
 <p>
 
@@ -55,7 +55,7 @@ vlmr.maslov@gmail.com
 <p>
 </details>
 
-### ДЗ 04. Измерение активности GC
+### ДЗ 05. Измерение активности GC
 <details><summary>Задание</summary>
 <p>
 
