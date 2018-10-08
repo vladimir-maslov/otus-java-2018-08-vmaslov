@@ -14,7 +14,7 @@ public class MyLittleTest {
     @Test
     public void test(){
         System.out.println("Little test method");
-        throw new RuntimeException();
+        throw new RuntimeException("My test exception");
     }
 
     @After

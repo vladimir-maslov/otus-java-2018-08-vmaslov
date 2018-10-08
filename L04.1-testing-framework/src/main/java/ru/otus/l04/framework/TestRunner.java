@@ -61,7 +61,7 @@ public class TestRunner {
                         method.invoke(testObject);
                     }
                 } catch (Exception e) {
-                    System.out.println("Test failed");
+                    System.out.println("Test failed: " + e.getCause().getMessage());
                     successTests--;
                 }
             }
