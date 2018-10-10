@@ -12,6 +12,8 @@ import java.util.AbstractMap.SimpleEntry;
 
 public class Benchmark implements BenchmarkMBean {
 
+    public final static double MINUTES_IN_MILLISECOND = 1.66667e-5;
+
     private volatile int size = 0;
     private ArrayList<Integer> testList = new ArrayList<>();
 
@@ -48,7 +50,7 @@ public class Benchmark implements BenchmarkMBean {
                     totalGCcount++;
 
                     double totalGCDuration = (result != null) ? result.getValue() : 0;
-                    totalGCDuration += duration * 1.66667e-5;
+                    totalGCDuration += duration * MINUTES_IN_MILLISECOND;
 
                     results.put(gcName, new SimpleEntry<Integer, Double>(totalGCcount, totalGCDuration));
 
