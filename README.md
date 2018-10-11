@@ -65,3 +65,11 @@ vlmr.maslov@gmail.com
 * Собрать статистику (количество сборок, время на сборки) по разным типам GC.
 <p>
 </details>
+
+### ДЗ 06. Cache Engine
+<details><summary>Задание</summary>
+<p>
+
+* Напишите свой cache engine с soft references.
+<p>
+</details>
