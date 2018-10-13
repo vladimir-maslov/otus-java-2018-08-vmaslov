@@ -50,15 +50,20 @@ public class CacheEngineImpl<K, V> implements CacheEngine<K, V> {
 
     @Override
     public V get(K key) {
-        V value = null;
         CacheEntry<V> element = elements.get(key);
-        if (element != null) {
-            hit++;
-            value = element.getValue();
-            element.setAccessed();
-        } else {
+        if (element == null) {
             miss++;
+            return null;
         }
+
+        V value = element.getValue();
+        if (value == null) {
+            miss++;
+            return null;
+        }
+
+        hit++;
+        element.setAccessed();
         return value;
     }
 

@@ -2,8 +2,8 @@ package ru.otus.l06;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-       // new Main().eternalCacheExample();
-       new Main().lifeCacheExample();
+        // new Main().eternalCacheExample();
+        new Main().lifeCacheExample();
     }
 
     private void eternalCacheExample() {
