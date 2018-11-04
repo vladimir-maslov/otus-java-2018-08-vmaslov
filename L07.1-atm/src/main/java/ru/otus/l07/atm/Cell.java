@@ -6,8 +6,8 @@ import java.util.Map;
 public class Cell {
     public static final int CELL_CAPACITY = 100;
 
-    private int capacity = CELL_CAPACITY;
-    private int denomination;
+    private final int capacity = CELL_CAPACITY;
+    private final int denomination;
     private int count = 0;
 
     public Cell(Banknote banknote) {

@@ -3,12 +3,13 @@ package ru.otus.l07;
 import ru.otus.l07.atm.ATM;
 import ru.otus.l07.atm.ATMEmulator;
 import ru.otus.l07.atm.Banknote;
+import ru.otus.l07.atm.MinimumBanknotes;
 
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        ATM atm = new ATMEmulator();
+        ATM atm = new ATMEmulator(new MinimumBanknotes());
 
         try {
             atm.put(Banknote.HUNDRED, 1);

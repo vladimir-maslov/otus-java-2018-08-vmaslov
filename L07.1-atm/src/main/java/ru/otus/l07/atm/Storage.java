@@ -11,12 +11,12 @@ public class Storage {
     });
     private ATMBanknotesStrategy banknotesStrategy;
 
-    public Storage() {
+    private Storage(ATMBanknotesStrategy strategy) {
+        this.banknotesStrategy = strategy;
     }
 
     public static Storage createStorage(ATMBanknotesStrategy strategy) {
-        Storage s = new Storage();
-        s.setBanknotesStrategy(strategy);
+        Storage s = new Storage(strategy);
         return s;
     }
 
@@ -37,10 +37,6 @@ public class Storage {
             cellsStorage.get(note).get(note, minimumBanknotes.get(note));
         }
         return minimumBanknotes;
-    }
-
-    public void setBanknotesStrategy(ATMBanknotesStrategy strategy){
-        this.banknotesStrategy = strategy;
     }
 
     public Map<Banknote, Integer> getBanknotesAmount() {

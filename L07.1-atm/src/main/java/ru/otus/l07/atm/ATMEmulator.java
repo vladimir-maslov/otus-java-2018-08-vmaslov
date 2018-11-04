@@ -10,8 +10,8 @@ public class ATMEmulator implements ATM {
 
     private Storage storage;
 
-    public ATMEmulator() {
-        storage = Storage.createStorage(new MinimumBanknotes());
+    public ATMEmulator(ATMBanknotesStrategy strategy) {
+        storage = Storage.createStorage(strategy);
     }
 
     @Override
