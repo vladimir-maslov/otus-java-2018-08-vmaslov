@@ -1,6 +1,7 @@
 package ru.otus.l08.department;
 
 import ru.otus.l08.atm.Observer;
+import ru.otus.l08.atm.events.EventInterface;
 
 public interface Observable {
 
@@ -8,6 +9,6 @@ public interface Observable {
 
     void unregisterObserver(Observer observer);
 
-    void notifyObservers(Event event);
+    void notifyObservers(EventInterface event);
 
 }

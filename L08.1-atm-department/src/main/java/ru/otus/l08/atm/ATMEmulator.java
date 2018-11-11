@@ -1,13 +1,10 @@
 package ru.otus.l08.atm;
 
-import ru.otus.l08.department.Event;
+import ru.otus.l08.atm.events.EventInterface;
 
 import java.util.Map;
 
 public class ATMEmulator implements ATMObserver {
-
-    private long limit = 0;
-    long balance = 0;
 
     private Storage storage;
     private ATMMemento memento;
@@ -15,6 +12,10 @@ public class ATMEmulator implements ATMObserver {
     public ATMEmulator(ATMBanknotesStrategy strategy) {
         storage = Storage.createStorage(strategy);
         this.save();
+    }
+
+    public ATMEmulator(ATMEmulator atmEmulator){
+        this.storage = new Storage(atmEmulator.storage);
     }
 
     @Override
@@ -38,16 +39,21 @@ public class ATMEmulator implements ATMObserver {
 
     @Override
     public void save() {
-        memento = storage.save();
+        memento = new ATMMemento(this);
     }
 
     @Override
     public void reset() {
-        storage.reset(memento);
+        ATMEmulator atmBackup = memento.getSavedState();
+        this.storage = atmBackup.getStorage();
+    }
+
+    private Storage getStorage(){
+        return new Storage(this.storage);
     }
 
     @Override
-    public void update(Event event) {
-        reset();
+    public void update(EventInterface event) {
+        event.doCommand(this);
     }
 }

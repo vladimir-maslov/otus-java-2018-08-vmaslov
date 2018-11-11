@@ -1,7 +1,7 @@
 package ru.otus.l08.atm;
 
-import ru.otus.l08.department.Event;
+import ru.otus.l08.atm.events.EventInterface;
 
 public interface Observer {
-    void update(Event event);
+    void update(EventInterface event);
 }

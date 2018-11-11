@@ -15,9 +15,20 @@ public class Storage {
         this.banknotesStrategy = strategy;
     }
 
+    public Storage(Storage storage){
+        this.banknotesStrategy = storage.getBanknotesStrategy();
+        for (Map.Entry<Banknote, Cell> entry : storage.cellsStorage.entrySet()) {
+            this.cellsStorage.put(entry.getKey(), new Cell(storage.cellsStorage.get(entry.getKey())));
+        }
+    }
+
     public static Storage createStorage(ATMBanknotesStrategy strategy) {
         Storage s = new Storage(strategy);
         return s;
+    }
+
+    public ATMBanknotesStrategy getBanknotesStrategy(){
+        return banknotesStrategy;
     }
 
     public void put(Banknote banknote, int amount) throws ATMException {
@@ -53,14 +64,6 @@ public class Storage {
                 .mapToInt(Integer::intValue)
                 .sum();
         return balance;
-    }
-
-    public ATMMemento save() {
-        return new ATMMemento(cellsStorage);
-    }
-
-    public void reset(ATMMemento memento) {
-        cellsStorage = memento.getSavedState();
     }
 
 }

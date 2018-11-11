@@ -12,4 +12,9 @@ public interface Department {
      */
     long getTotalCashLimit();
 
+    /**
+     * Reset all ATMs in the department
+     */
+    void reset();
+
 }

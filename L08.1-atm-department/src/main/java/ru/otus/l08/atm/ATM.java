@@ -19,7 +19,7 @@ public interface ATM {
     /**
      * Withdraw cash from the ATM
      *
-     * @return Map<Banknote       ,               Long> Cash money
+     * @return Map<Banknote               ,                               Long> Cash money
      * @throws ATMException When there are not enough cash
      */
     Map<Banknote, Integer> withdraw(int amount) throws ATMException;

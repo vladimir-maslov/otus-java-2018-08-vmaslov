@@ -2,7 +2,6 @@ package ru.otus.l08;
 
 import ru.otus.l08.atm.*;
 import ru.otus.l08.department.ATMDepartment;
-import ru.otus.l08.department.Event;
 
 import java.util.Map;
 
@@ -51,12 +50,13 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
+        System.out.println("ATMs after withdraw.");
         printCashLimit(atmDep.get(0).getCashLimit());
         printCashLimit(atmDep.get(1).getCashLimit());
         printTotalCashLimit(atmDep.getTotalCashLimit());
 
         System.out.println("Restore ATMs.");
-        atmDep.notifyObservers(new Event());
+        atmDep.reset();
 
         printCashLimit(atmDep.get(0).getCashLimit());
         printCashLimit(atmDep.get(1).getCashLimit());

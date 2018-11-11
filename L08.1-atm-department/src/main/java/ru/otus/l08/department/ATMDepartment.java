@@ -3,6 +3,8 @@ package ru.otus.l08.department;
 import ru.otus.l08.atm.ATM;
 import ru.otus.l08.atm.Observer;
 import ru.otus.l08.atm.ATMObserver;
+import ru.otus.l08.atm.events.EventInterface;
+import ru.otus.l08.atm.events.ResetEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,11 @@ public class ATMDepartment implements Department, Observable {
     }
 
     @Override
+    public void reset(){
+        notifyObservers(new ResetEvent());
+    }
+
+    @Override
     public void registerObserver(Observer observer) {
         atmObservers.add(observer);
     }
@@ -44,7 +51,7 @@ public class ATMDepartment implements Department, Observable {
     }
 
     @Override
-    public void notifyObservers(Event event) {
+    public void notifyObservers(EventInterface event) {
         for (Observer observer : atmObservers) {
             observer.update(event);
         }
