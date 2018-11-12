@@ -99,3 +99,12 @@ vlmr.maslov@gmail.com
   (начальные состояния у разных ATM могут быть разными)
 <p>
 </details>
+
+### ДЗ 09. JSON Object Writer
+<details><summary>Задание</summary>
+<p>
+
+* Напишите свой json object writer (object to JSON string) аналогичный gson на основе javax.json или simple-json и Reflection.
+* Поддержите массивы объектов и примитивных типов, и коллекции из стандартной библиотеки.
+<p>
+</details>
