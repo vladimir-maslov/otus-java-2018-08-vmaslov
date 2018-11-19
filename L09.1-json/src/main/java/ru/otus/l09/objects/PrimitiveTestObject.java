@@ -12,4 +12,6 @@ public class PrimitiveTestObject {
     public byte byteTest;
 
     public String strTest;
+
+    private final static int FINAL_INT = 33;
 }

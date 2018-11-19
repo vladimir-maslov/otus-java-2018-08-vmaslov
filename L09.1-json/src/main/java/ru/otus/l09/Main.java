@@ -6,6 +6,7 @@ import ru.otus.l09.objects.CollectionsTestObject;
 import ru.otus.l09.objects.ComplexTestObject;
 import ru.otus.l09.objects.PrimitiveTestObject;
 
+import java.util.Collections;
 import java.util.Random;
 
 public class Main {
@@ -19,6 +20,17 @@ public class Main {
         compareJsonConversions(arraysTestObject, "Arrays");
         compareJsonConversions(collectionsTestObject, "Collections");
         compareJsonConversions(complexTestObject, "Complex object");
+
+        compareJsonConversions(new int[]{1, 2, 3, 5}, "ArrayThatHaveNoWrap");
+        compareJsonConversions(new String[]{"1"}, "StringArrayThatHaveNoWrap");
+        compareJsonConversions(Collections.singletonList(1), "ListThatHaveNoWrap");
+        compareJsonConversions(Collections.singletonMap(1, "Val"), "MapThatHaveNoWrap");
+
+        compareJsonConversions(null, "NullThatHaveNoWrap");
+        compareJsonConversions(1, "IntegerThatHaveNoWrap");
+        compareJsonConversions(10L, "LongThatHaveNoWrap");
+        compareJsonConversions('c', "CharacterThatHaveNoWrap");
+        compareJsonConversions("Test string", "StringThatHaveNoWrap");
     }
 
     public static void convertToJson(Object object, String text){

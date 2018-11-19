@@ -20,12 +20,15 @@ public class JsonObjectWriter {
         if (fields == null)
             return null;
 
+        if (isJSONArray(object) || isJSONValue(object))
+            return getJsonElement(object);
+
         for (Field field : fields) {
             try {
                 field.setAccessible(true);
 
                 int modifiers = field.getModifiers();
-                if (Modifier.isTransient(modifiers))
+                if (Modifier.isTransient(modifiers) || Modifier.isStatic(modifiers))
                     continue;
 
                 Object value = field.get(object);
@@ -92,6 +95,18 @@ public class JsonObjectWriter {
 
     public static boolean isIterable(Object object) {
         return (object instanceof Iterable);
+    }
+
+    public static boolean isJSONArray(Object object){
+        return isArray(object)
+                || isIterable(object)
+                || object instanceof Map;
+    }
+
+    public static boolean isJSONValue(Object object){
+        return isPrimitiveType(object)
+                || (object instanceof String)
+                || (object instanceof Character);
     }
 
     private static String getArray(Object object) {
