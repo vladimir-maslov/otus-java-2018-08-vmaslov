@@ -31,7 +31,8 @@ public class ReflectionHelper {
 
     public static String getFieldValue(Field field, Object object){
         try {
-            String result = stringify(field.get(object));
+            // String result = stringify(field.get(object));
+            String result = field.get(object).toString();
             return result;
         } catch (IllegalAccessException e){
             e.printStackTrace();
@@ -39,9 +40,8 @@ public class ReflectionHelper {
         return null;
     }
 
-    public static Method getSetterMethod(Class clazz, String columnName){
+    public static Method getSetterMethod(Class clazz, String columnName, Method[] methods){
         try {
-            Method[] methods = clazz.getMethods();
             for (Method method : methods){
                 String setterMethodName = "set" +
                         Character.toUpperCase(columnName.charAt(0)) +
@@ -55,34 +55,5 @@ public class ReflectionHelper {
             e.printStackTrace();
         }
         return null;
-    }
-
-    public static String stringify(Object object){
-        if (object == null)
-            return null;
-
-        if (isPrimitiveType(object)) {
-            return object.toString();
-        }
-
-        if (object instanceof Character) {
-            return StringWrapper.QUOTES.wrap(object.toString());
-        }
-
-        if (object instanceof String) {
-            return StringWrapper.QUOTES.wrap(object.toString());
-        }
-
-        return null;
-    }
-
-    public static boolean isPrimitiveType(Object object) {
-        return (object instanceof Integer
-                || object instanceof Short
-                || object instanceof Long
-                || object instanceof Float
-                || object instanceof Double
-                || object instanceof Byte
-                || object instanceof Boolean);
     }
 }

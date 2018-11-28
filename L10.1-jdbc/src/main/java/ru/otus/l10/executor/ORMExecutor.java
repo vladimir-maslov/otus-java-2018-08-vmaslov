@@ -1,6 +1,8 @@
 package ru.otus.l10.executor;
 
 import ru.otus.l10.dataset.DataSet;
+import ru.otus.l10.db.ClassInternalsCache;
+import ru.otus.l10.exception.ORMException;
 import ru.otus.l10.handler.Handler;
 import ru.otus.l10.handler.THandler;
 import ru.otus.l10.helper.ReflectionHelper;
@@ -16,22 +18,30 @@ public class ORMExecutor implements Executor {
     private final static String INSERT_DATASET_TEMPLATE = "INSERT INTO %s (%s) VALUES (%s)";
 
     private final Connection connection;
+    private final ClassInternalsCache cache;
 
     public ORMExecutor(Connection connection) {
         this.connection = connection;
+        this.cache = null;
+    }
+
+    public ORMExecutor(Connection connection, ClassInternalsCache cache) {
+        this.connection = connection;
+        this.cache = cache;
     }
 
     @Override
-    public void execQuery(String query, Handler handler) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(query);
+    public void execQuery(String query, Handler handler, Object... parameters) throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            prepareStatement(statement, parameters);
+            statement.execute();
             ResultSet result = statement.getResultSet();
             handler.handle(result);
         }
     }
 
     @Override
-    public <T> T execQuery(String query, THandler<T> handler, Object parameters) throws SQLException {
+    public <T> T execQuery(String query, THandler<T> handler, Object... parameters) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             prepareStatement(statement, parameters);
             statement.execute();
@@ -58,30 +68,22 @@ public class ORMExecutor implements Executor {
     @Override
     public <T extends DataSet> void save(T user) {
         try {
-            String tableName = user.getClass().getSimpleName();
-            Field[] fields = ReflectionHelper.getClassFields(user.getClass());
+            if (cache == null)
+                throw new ORMException("Class is not supported");
 
-            if (fields.length == 0) {
-                return;
-            }
+            Field[] fields = cache.getFields();
 
-            ArrayList<String> fieldsNames = new ArrayList<>();
             ArrayList<String> fieldsValues = new ArrayList<>();
-
             for (Field field : fields) {
-                fieldsNames.add(field.getName());
                 fieldsValues.add(ReflectionHelper.getFieldValue(field, user));
             }
 
-            String query = String.format(
-                    INSERT_DATASET_TEMPLATE,
-                    tableName,
-                    String.join(",", fieldsNames),
-                    String.join(",", fieldsValues));
+            String query = cache.getQueryInsert();
 
             execQuery(query,
                     result -> {
-                    });
+                    },
+                    fieldsValues.toArray());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,11 +95,10 @@ public class ORMExecutor implements Executor {
     @Override
     public <T extends DataSet> T load(long id, Class<T> clazz) {
         try {
-            String tableName = clazz.getSimpleName();
+            if (cache == null)
+                throw new ORMException("Class is not supported");
 
-            String query = String.format(
-                    SELECT_DATASET_TEMPLATE,
-                    tableName);
+            String query = cache.getQuerySelect();
 
             return (T) execQuery(query,
                     result -> {
@@ -124,7 +125,7 @@ public class ORMExecutor implements Executor {
 
             for (int i = 1; i <= columnCount; i++) {
                 String columnName = resultSetMetaData.getColumnName(i);
-                Method setter = ReflectionHelper.getSetterMethod(clazz, columnName);
+                Method setter = ReflectionHelper.getSetterMethod(clazz, columnName, cache.getMethods());
                 if (setter != null) {
                     setter.invoke(object, result.getObject(i));
                 }

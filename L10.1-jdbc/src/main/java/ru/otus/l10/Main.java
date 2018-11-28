@@ -14,6 +14,7 @@ public class Main {
         try (Connection connection = ConnectionHelper.getConnection()) {
             DBServiceORM dbServiceORM = new DBServiceORM(connection);
 
+            dbServiceORM.init(UserDataSet.class);
             dbServiceORM.prepareDBTables(UserDataSet.class);
 
             UserDataSet user = new UserDataSet("Jimmy", 42);
@@ -26,7 +27,7 @@ public class Main {
             printUser(dbUser);
 
             dbServiceORM.deleteDBTables(UserDataSet.class);
-        } catch (SQLException e){
+        } catch (Exception e){
             e.printStackTrace();
         }
 
