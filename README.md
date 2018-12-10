@@ -127,3 +127,40 @@ age int(3)`
 `<T extends DataSet> T load(long id, Class<T> clazz){…}`
 <p>
 </details>
+
+### ДЗ 11. Hibernate ORM
+<details><summary>Задание</summary>
+<p>
+
+На основе предыдущего ДЗ (myORM):
+* Оформить решение в виде DBService (interface DBService, class DBServiceImpl, UsersDAO, UsersDataSet, Executor)
+* Не меняя интерфейс DBSerivice сделать DBServiceHibernateImpl на Hibernate.
+* Добавить в UsersDataSet поля:
+
+адрес (OneToOne) 
+
+`class AddressDataSet {
+private String street;
+}`
+
+и телефон* (OneToMany)
+
+`class PhoneDataSet{
+private String number;
+}`
+* Добавить соответствущие датасеты и DAO. 
+<p>
+</details>
+
+### ДЗ 12. Веб сервер
+<details><summary>Задание</summary>
+<p>
+
+* Встроить веб сервер в приложение из ДЗ-11. 
+
+* Сделать админскую страницу, на которой можно:
+- добавить пользователя, 
+- получить имя пользователя по id,
+- получить количество пользователей в базе.
+<p>
+</details>

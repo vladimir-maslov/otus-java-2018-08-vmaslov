@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>User</title>
+</head>
+<div>
+<div class="top">
+    <img src="logo.png"/>
+    <br/>
+    <a href="login">Login</a>
+    <a href="admin">Admin</a>
+    <a href="user">User</a>
+</div>
+<br/>
+<div class="user_add">
+    <h2>Add user</h2>
+    <form action="/user" method="POST">
+        Name: <input type="text" name="name"/><br/>
+        Age: <input type="number" name="age"/><br/>
+        <input type="submit" name="submit_add" value="submit">
+        <br/>
+        <#if isAddError??>
+            ${isAddError}
+        </#if>
+    </form>
+</div>
+
+    <br/>
+
+<div class="user_search">
+    <h2>Get user by ID</h2>
+    <form action="/user" method="GET">
+        ID: <input type="text" name="id"/>
+        <input type="submit" name="submit_search" value="submit">
+        <br/>
+        <#if userName??>
+            User: ${userName}
+        </#if>
+        <#if isSearchError??>
+            ${isSearchError}
+        </#if>
+    </form>
+</div>
+
+    <br/>
+
+<div class="user_count">
+    <h2>User count</h2>
+    <p>Users in database: ${userCount}</p>
+</div>
+</body>
+</html>
