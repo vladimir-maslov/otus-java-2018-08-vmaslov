@@ -1,0 +1,19 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="cache" class="ru.otus.l14.cache.CacheEngineImpl">
+        <constructor-arg name="maxElements" value="1000"></constructor-arg>
+        <constructor-arg name="lifeTimeMs" value="0"></constructor-arg>
+        <constructor-arg name="idleTimeMs" value="0"></constructor-arg>
+        <constructor-arg name="isEternal" value="1"></constructor-arg>
+    </bean>
+
+    <bean id="dbService" class="ru.otus.l14.helper.DBHelper" factory-method="initDB">
+        <constructor-arg ref="cache"/>
+    </bean>
+
+    <bean id="templateProcessor" class="ru.otus.l14.servlets.TemplateProcessor"/>
+
+</beans>
