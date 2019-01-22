@@ -1,8 +1,12 @@
 package ru.otus.l14.servlets;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +19,7 @@ import java.util.Map;
 /**
  * @author v.chibrikov
  */
+@Configurable
 public class LoginServlet extends HttpServlet {
 
     public static final String LOGIN_PARAMETER_NAME = "login";
@@ -22,12 +27,14 @@ public class LoginServlet extends HttpServlet {
 
     private static final String LOGIN_PAGE_TEMPLATE = "login.html";
 
+    @Autowired
     private TemplateProcessor templateProcessor;
     private String login;
 
-    public void init(){
-        ApplicationContext context = new ClassPathXmlApplicationContext("SpringBeans.xml");
-        templateProcessor = context.getBean("templateProcessor", TemplateProcessor.class);
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
 
     private String getPage(String login) throws IOException {
