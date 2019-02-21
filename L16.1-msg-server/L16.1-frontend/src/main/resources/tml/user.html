@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>User</title>
+    <script src="js/ws.js" type="text/javascript"></script>
+</head>
+<body onload="init();">
+<div>
+<div class="top">
+    <img src="logo.png"/>
+    <br/>
+    <a href="login">Login</a>
+    <a href="admin">Admin</a>
+    <a href="user">User</a>
+</div>
+<br/>
+<div class="user_add">
+    <h2>Add user</h2>
+    <form action="user" method="POST">
+        Name: <input type="text" name="name" id="userName"/><br/>
+        Age: <input type="number" name="age" id="userAge"/><br/>
+        <input type="button" name="submit_add" value="submit" onclick="sendAddUserMessage();"/>
+        <br/>
+        <#if isAddError??>
+            ${isAddError}
+        </#if>
+    </form>
+</div>
+
+    <br/>
+
+<div class="user_search">
+    <h2>Get user by ID</h2>
+    <form action="user" method="GET">
+        ID: <input type="text" name="id" id="userId"/>
+        <input type="button" name="submit_search" value="submit" onclick="sendGetUserByIdMessage();">
+        <br/>
+        <#if userName??>
+            User: ${userName}
+        </#if>
+        <#if isSearchError??>
+            ${isSearchError}
+        </#if>
+    </form>
+</div>
+
+    <br/>
+
+<div id="ws_result">
+
+</div>
+</body>
+</html>

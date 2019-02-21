@@ -196,3 +196,16 @@ private String number;
 
 <p>
 </details>
+
+
+### ДЗ 16. Message Server
+<details><summary>Задание</summary>
+<p>
+
+* Сервер из ДЗ 15 разделить на три приложения: MessageServer, Frontend, DBServer.
+* Запускать Frontend и DBServer из MessageServer.
+* Сделать MessageServer сокет-сервером, Frontend и DBServer клиентами.
+* Пересылать сообщения с Frontend на DBService через MessageServer.
+
+<p>
+</details>

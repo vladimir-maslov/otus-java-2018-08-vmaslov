@@ -1,0 +1,15 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="templateProcessor" class="ru.otus.l16.frontend.servlet.TemplateProcessor"/>
+
+    <bean id="messageServerClient" class="ru.otus.l16.frontend.app.MessageServerClient"/>
+
+    <bean id="frontendService" class="ru.otus.l16.frontend.app.FrontendServiceImpl">
+        <constructor-arg name="messageServerClient" ref="messageServerClient"/>
+        <constructor-arg name="templateProcessor" ref="templateProcessor"/>
+    </bean>
+
+</beans>
